@@ -12,10 +12,8 @@ use Config\Database;
 
 function testShowTodoList(): void
 {
-	$todolistRepository = new TodolistRepositoryImpl();
-	$todolistRepository->addTodolist('Ikhsan');
-	$todolistRepository->addTodolist('Heiryawan');
-	$todolistRepository->addTodolist('Kuncoro');
+	$connection = Database::getConnection();
+	$todolistRepository = new TodolistRepositoryImpl($connection);
 
 	$todolistService =  new TodolistServiceImpl($todolistRepository);
 	$todolistService->showTodoList();
@@ -34,17 +32,13 @@ function testAddTodolist(): void
 
 function testRemoveTodolist(): void
 {
-	$todolistRepository = new TodolistRepositoryImpl();
+	$connection = Database::getConnection();
+	$todolistRepository = new TodolistRepositoryImpl($connection);
 	
 	$todolistService =  new TodolistServiceImpl($todolistRepository);
-	$todolistService->addTodolist('Ikhsan');
-	$todolistService->addTodolist('Heiryawan');
-	$todolistService->addTodolist('Kuncoro');
-
-	$todolistService->showTodoList();
-	$todolistService->removeTodolist(1);
-	$todolistService->showTodoList();
-
+	echo $todolistService->removeTodolist(5) . PHP_EOL;
+	echo $todolistService->removeTodolist(4) . PHP_EOL;
+	echo $todolistService->removeTodolist(3) . PHP_EOL;
 }
 
-testAddTodolist();
+testShowTodoList();
